@@ -25,6 +25,8 @@
       "advertisement",
       "sponsored",
    ];
+   const adLinkPattern = /vk\.cc\/[a-zA-Z0-9]+/g;
+
    const SELECTORS = [
       "#spa_layout_content div[role='feed']",
       "#page_wrap div[role='feed']",
@@ -94,7 +96,6 @@
 
          let rawDescription = textClone.textContent.trim();
 
-         const adLinkPattern = /vk\.cc\/[a-zA-Z0-9]+/g;
          const foundLinks = rawDescription.match(adLinkPattern);
 
          if (foundLinks && foundLinks.length > 0) {
