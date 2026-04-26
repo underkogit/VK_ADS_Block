@@ -13,9 +13,9 @@
 (function () {
    "use strict";
 
-   let postsContainer = null;
-   let knownPosts = new Set();
-   let hiddenPosts = new Set();
+   /// OPTIONS
+   let DEBUGMODE = false;
+
    const adMarkers = [
       "реклама",
       "Реклама",
@@ -35,6 +35,17 @@
       "#page-wall",
       "#page-wall > div",
    ];
+   /// OPTIONS
+
+   let postsContainer = null;
+   let knownPosts = new Set();
+   let hiddenPosts = new Set();
+
+   function DEBUG_LOG(content) {
+      if (!DEBUGMODE) return;
+
+      console.log(content);
+   }
 
    function findPostsContainer() {
       for (const selector of SELECTORS) {
@@ -195,15 +206,15 @@
 
          if (postData) {
             if (postData.isAd) {
-               console.log(`🚫 Скрыта реклама от: ${postData.groupName}`);
+               DEBUG_LOG(`🚫 Скрыта реклама от: ${postData.groupName}`);
                hideAdPost(postData.element);
                hiddenPosts.add(postData.postId);
             }
 
-            console.log(postData);
+            DEBUG_LOG(postData);
          }
       });
-      console.log("\n" + "=".repeat(70));
+      DEBUG_LOG("\n" + "=".repeat(70));
    }
 
    function hideExistingAds() {
@@ -213,7 +224,8 @@
          if (postData && postData.isAd && !hiddenPosts.has(postData.postId)) {
             hideAdPost(post);
             hiddenPosts.add(postData.postId);
-            console.log(
+
+            DEBUG_LOG(
                `🚫 Скрыта существующая реклама от: ${postData.groupName}`,
             );
          }
