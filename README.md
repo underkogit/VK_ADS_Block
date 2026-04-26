@@ -21,3 +21,5 @@ REGEX Pattern links
 ```js
 const adLinkPattern = /vk\.cc\/[a-zA-Z0-9]+/g;
 ```
+
+![enter image description here](Assets/chrome_YfVYmzsjJv.png)
